@@ -17,13 +17,13 @@ public class NinjaController {
 
     //GET  -> Mostrar todos os Ninjas
     @GetMapping("/listar")
-    public List<NinjaModel> listarNinjas() {
+    public List<NinjaDTO> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
     //GET  -> Mostrar Ninja por ID
     @GetMapping("/listar/{id}")
-    public NinjaModel mostrarNinjasPorId(@PathVariable Long id) {
+    public NinjaDTO mostrarNinjasPorId(@PathVariable Long id) {
         return ninjaService.listarNinjaPorId(id);
     }
 
@@ -35,7 +35,7 @@ public class NinjaController {
 
     //PUT  -> Alterar dados dos ninjas
     @PutMapping("/alterar/{id}")
-    public NinjaModel atualizarNinja(@PathVariable Long id, @RequestBody NinjaModel ninjaBody) {
+    public NinjaDTO atualizarNinja(@PathVariable Long id, @RequestBody NinjaDTO ninjaBody) {
         return ninjaService.editarNinja(id, ninjaBody);
     }
 
@@ -43,10 +43,5 @@ public class NinjaController {
     @DeleteMapping("/deletar/{id}")
     public void deletarNinja(@PathVariable Long id){
         ninjaService.deletarNinja(id);
-    }
-
-    @GetMapping("/status")
-    public String boasVindas() {
-        return "Essa é minha primeira mensagem nessa rota";
     }
 }
