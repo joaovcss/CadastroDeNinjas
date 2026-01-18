@@ -5,29 +5,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
     private MissoesService missoesService;
 
-    @GetMapping("/todasMissoes")
-    public List<MissoesModel> verMissoes(){
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
+
+    @GetMapping("/listar")
+    public List<MissoesDTO> verMissoes(){
         return missoesService.verMissoes();
     }
 
-    @GetMapping("/verMissao/{id}")
-    public MissoesModel verMissao(@PathVariable Long id){
+    @GetMapping("/listar/{id}")
+    public MissoesDTO verMissao(@PathVariable Long id){
         return missoesService.verMissao(id);
     }
 
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missao){
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missao){
         return missoesService.criarMissao(missao);
     }
 
     @PutMapping("/alterar/{id}")
-    public String editarMissao(){
-        return "Missão editada";
+    public MissoesDTO editarMissao(@PathVariable Long id, @RequestBody MissoesDTO missaoDTO){
+        return missoesService.alterarMissao(id, missaoDTO);
     }
 
     @DeleteMapping("/deletar/{id}")
